@@ -78,7 +78,7 @@ class DisplayInfo {
         println("장바구니가 비었습니다. 메뉴를 담아주세요.")
     }
 
-    fun test(){
+    fun displayException(){
         println("유효되는 숫자를 입력해주세요.")
     }
 

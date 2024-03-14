@@ -24,19 +24,21 @@ class SelectMenuInfo {
                 drinksMenuOperation()
 
             } else if (menuSelectInput == 4) {
-                DisplayInfo().displayCheckOut()
+                if (cartList.isEmpty()){
+                    DisplayInfo().displayCheckoutEmpty()
 
-                if (checkoutOperation()){
-                    break
+                } else {
+                    DisplayInfo().displayCheckOut()
+
+                    if (checkoutOperation()){
+                        break
+                    }
                 }
             }
         }
     }
 
     fun burgersMenuOperation() {
-
-
-
         while (true) {
             var menuSelectInput = readLine()!!.toInt()
 
@@ -49,6 +51,7 @@ class SelectMenuInfo {
                         DisplayInfo().displayOrderCheck(burgersList[i])
                         checkCart(burgersList[i])
                         return
+
                     }
                 }
             }
@@ -107,23 +110,17 @@ class SelectMenuInfo {
     }
 
     fun checkoutOperation(): Boolean {
+        while (true) {
+            var checkOutInput = readLine()!!.toInt()
 
-        if (cartList.isEmpty()){
-            DisplayInfo().displayCheckoutEmpty()
-        } else {
-            while (true) {
-                var checkOutInput = readLine()!!.toInt()
+            if (checkOutInput == 1) {
+                return checkoutMoneyOperation()
 
-                if (checkOutInput == 1) {
-                    return checkoutMoneyOperation()
+            } else if (checkOutInput == 2) {
+                break
 
-                } else if (checkOutInput == 2) {
-                    break
-
-                }
             }
         }
-
 
         return false
     }
@@ -139,15 +136,13 @@ class SelectMenuInfo {
             myMoney -= totalMoney
             DisplayInfo().displayCheckoutMoney()
             return true
+
         } else {
             val oddMoney = totalMoney - myMoney
             DisplayInfo().displayCheckoutCheck(oddMoney)
-            return false
+            return true
 
         }
     }
-
-
-
 
 }
