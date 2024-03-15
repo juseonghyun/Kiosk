@@ -1,31 +1,18 @@
 package com.example.kiosk
 
+// 현재 돈을 여기서 수정하세요.
+var myMoney: Int = 10000
+
 fun main() {
-    var test = "0"
 
-    while (true){
-        DisplayInfo().displayMain()
-        var inputMenuSelect = readLine()!!.toInt()
-        if (inputMenuSelect == 0){
-            println("주문을 종료합니다.")
-            break
-        } else if (inputMenuSelect == 1){
-            DisplayInfo().displayBurger()
-            break
-
-        } else if (inputMenuSelect == 2){
-            DisplayInfo().displaySide()
-            break
-
-        } else if (inputMenuSelect == 3){
-            DisplayInfo().displayDrink()
-            break
-
-        } else {
-            continue
-        }
-
-    }
+    SelectMenuInfo().selectMainMenu()
 
 }
 
+// DisplayInfo = 출력화면 설정 class
+
+// SelectMenuInfo = 모든 화면의 선택지 연산 class
+
+// MoneyOperation = 장바구니에 담은 물품들 연산 class
+
+// DataModel = dataModel, 모든 list 관리
