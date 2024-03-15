@@ -2,7 +2,7 @@ package com.example.kiosk
 
 class SelectMenuInfo {
 
-    fun selectMenuOperation() {
+    fun selectMainMenu() {
 
         try {
             while (true) {
@@ -14,39 +14,41 @@ class SelectMenuInfo {
 
                 } else if (menuSelectInput == 1) {
                     DisplayInfo().displayBurger()
-                    burgersMenuOperation()
+                    selectBurgersMenu()
 
                 } else if (menuSelectInput == 2) {
                     DisplayInfo().displaySide()
-                    sidesMenuOperation()
+                    selectSidesMenu()
 
                 } else if (menuSelectInput == 3) {
                     DisplayInfo().displayDrink()
-                    drinksMenuOperation()
+                    selectDrinksMenu()
 
                 } else if (menuSelectInput == 4) {
-                    if (cartList.isEmpty()){
+                    if (cartList.isEmpty()) {
                         DisplayInfo().displayCheckoutEmpty()
 
                     } else {
                         DisplayInfo().displayCheckOut()
-
-                        if (checkoutOperation()){
+                        if (checkoutOperation()) {
                             break
                         }
                     }
+
                 } else {
                     DisplayInfo().displayException()
+
                 }
             }
 
-        }catch (e:NumberFormatException){
+        } catch (e: NumberFormatException) {
             DisplayInfo().displayException()
-            selectMenuOperation()
+            selectMainMenu()
+
         }
     }
 
-    fun burgersMenuOperation() {
+    fun selectBurgersMenu() {
         try {
             while (true) {
                 var menuSelectInput = readLine()!!.toInt()
@@ -54,27 +56,30 @@ class SelectMenuInfo {
                 if (menuSelectInput == 0) {
                     break
 
-                } else if (menuSelectInput == 1 || menuSelectInput == 2){
+                } else if (menuSelectInput == 1 || menuSelectInput == 2) {
                     for (i in 0..burgersList.size - 1) {
                         if (menuSelectInput == burgersList[i].id) {
                             DisplayInfo().displayOrderCheck(burgersList[i])
-                            checkCart(burgersList[i])
+                            selectCartCheck(burgersList[i])
                             return
                         }
                     }
+
                 } else {
                     DisplayInfo().displayException()
+
                 }
             }
 
-        } catch (e:NumberFormatException){
+        } catch (e: NumberFormatException) {
             DisplayInfo().displayException()
-            burgersMenuOperation()
+            selectBurgersMenu()
+
         }
 
     }
 
-    fun sidesMenuOperation() {
+    fun selectSidesMenu() {
         try {
             while (true) {
                 var menuSelectInput = readLine()!!.toInt()
@@ -82,27 +87,30 @@ class SelectMenuInfo {
                 if (menuSelectInput == 0) {
                     break
 
-                } else if (menuSelectInput == 1 || menuSelectInput == 2){
+                } else if (menuSelectInput == 1 || menuSelectInput == 2) {
                     for (i in 0..sidesList.size - 1) {
                         if (menuSelectInput == sidesList[i].id) {
                             DisplayInfo().displayOrderCheck(sidesList[i])
-                            checkCart(sidesList[i])
+                            selectCartCheck(sidesList[i])
                             return
                         }
                     }
+
                 } else {
                     DisplayInfo().displayException()
+
                 }
             }
 
-        }catch (e:NumberFormatException){
+        } catch (e: NumberFormatException) {
             DisplayInfo().displayException()
-            sidesMenuOperation()
+            selectSidesMenu()
+
         }
 
     }
 
-    fun drinksMenuOperation() {
+    fun selectDrinksMenu() {
         try {
             while (true) {
                 var menuSelectInput = readLine()!!.toInt()
@@ -110,28 +118,30 @@ class SelectMenuInfo {
                 if (menuSelectInput == 0) {
                     break
 
-                } else if (menuSelectInput == 1 || menuSelectInput == 2){
+                } else if (menuSelectInput == 1 || menuSelectInput == 2) {
+
                     for (i in 0..drinksList.size - 1) {
                         if (menuSelectInput == drinksList[i].id) {
                             DisplayInfo().displayOrderCheck(drinksList[i])
-                            checkCart(drinksList[i])
+                            selectCartCheck(drinksList[i])
                             return
                         }
                     }
+
                 } else {
                     DisplayInfo().displayException()
+
                 }
             }
 
-        }catch (e:NumberFormatException){
+        } catch (e: NumberFormatException) {
             DisplayInfo().displayException()
-            drinksMenuOperation()
-        }
+            selectDrinksMenu()
 
+        }
     }
 
-
-    fun checkCart(dataModel: DataModel) {
+    fun selectCartCheck(dataModel: DataModel) {
         try {
             while (true) {
                 var checkCart = readLine()!!.toInt()
@@ -139,18 +149,21 @@ class SelectMenuInfo {
                     cartList.add(dataModel)
                     DisplayInfo().displayAddCart(dataModel)
                     break
+
                 } else if (checkCart == 2) {
                     break
+
                 } else {
                     DisplayInfo().displayException()
+
                 }
             }
 
-        }catch (e:NumberFormatException){
+        } catch (e: NumberFormatException) {
             DisplayInfo().displayException()
-            checkCart(dataModel)
-        }
+            selectCartCheck(dataModel)
 
+        }
     }
 
     fun checkoutOperation(): Boolean {
@@ -159,41 +172,23 @@ class SelectMenuInfo {
                 var checkOutInput = readLine()!!.toInt()
 
                 if (checkOutInput == 1) {
-                    return checkoutMoneyOperation()
+                    return MoneyOperation().checkoutMoneyOperation()
 
                 } else if (checkOutInput == 2) {
                     break
 
                 } else {
                     DisplayInfo().displayException()
+
                 }
             }
 
-        }catch (e:NumberFormatException) {
+        } catch (e: NumberFormatException) {
             DisplayInfo().displayException()
-            checkoutOperation() // 오류발생 // try-catch문 말고 문자열 예외처리 방법이있는지 or 왜 지금 문자열후 주문하기누르면 함수가 안끝나는지
+            checkoutOperation()
+
         }
-        return false
+        return true
+
     }
-
-
-    fun checkoutMoneyOperation(): Boolean{
-        var totalMoney = 0
-
-        cartList.forEach {
-            totalMoney += it.price
-        }
-        if (myMoney >= totalMoney){
-            myMoney -= totalMoney
-            DisplayInfo().displayCheckoutMoney()
-            return true
-
-        } else {
-            val oddMoney = totalMoney - myMoney
-            DisplayInfo().displayCheckoutCheck(oddMoney)
-            return true
-
-        }
-    }
-
 }
