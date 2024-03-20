@@ -1,13 +1,14 @@
 package com.example.kiosk
 
-// 현재 돈을 여기서 수정하세요.
-var myMoney: Int = 10000
-
 fun main() {
 
     SelectMenuInfo().selectMainMenu()
 
 }
+// init, 메인함수 실행시 초기화되는 함수를 만들어라.
+
+
+
 
 // DisplayInfo = 출력화면 설정 class
 

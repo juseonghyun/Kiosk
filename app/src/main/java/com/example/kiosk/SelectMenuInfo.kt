@@ -7,37 +7,56 @@ class SelectMenuInfo {
         try {
             while (true) {
                 DisplayInfo().displayMain()
-                var menuSelectInput = readLine()!!.toInt()
+                var menuSelectInput = readln().toInt()
 
-                if (menuSelectInput == 0) {
-                    break
-
-                } else if (menuSelectInput == 1) {
-                    DisplayInfo().displayBurger()
-                    selectBurgersMenu()
-
-                } else if (menuSelectInput == 2) {
-                    DisplayInfo().displaySide()
-                    selectSidesMenu()
-
-                } else if (menuSelectInput == 3) {
-                    DisplayInfo().displayDrink()
-                    selectDrinksMenu()
-
-                } else if (menuSelectInput == 4) {
-                    if (cartList.isEmpty()) {
-                        DisplayInfo().displayCheckoutEmpty()
-
-                    } else {
-                        DisplayInfo().displayCheckOut()
-                        if (checkoutOperation()) {
-                            break
-                        }
+                when (menuSelectInput) {
+                    0 -> {
+                        break
                     }
 
-                } else {
-                    DisplayInfo().displayException()
+                    1 -> {
+                        DisplayInfo().displayBurger()
+                        selectBurgersMenu()
+                    }
 
+                    2 -> {
+                        DisplayInfo().displaySide()
+                        selectSidesMenu()
+                    }
+
+                    3 -> {
+                        DisplayInfo().displayDrink()
+                        selectDrinksMenu()
+                    }
+
+                    4 -> {
+                        when (cartList.isEmpty()) {
+                            true -> {
+                                DisplayInfo().displayCheckoutEmpty()
+                            }
+
+                            else -> {
+                                DisplayInfo().displayCheckOut()
+
+                                when (checkoutOperation()) {
+                                    true -> {
+                                        break
+                                    }
+
+                                    else -> {
+                                        continue
+                                    }
+                                }
+
+                            }
+                        }
+
+                    }
+
+                    else -> {
+                        DisplayInfo().displayException()
+
+                    }
                 }
             }
 
@@ -51,23 +70,30 @@ class SelectMenuInfo {
     fun selectBurgersMenu() {
         try {
             while (true) {
-                var menuSelectInput = readLine()!!.toInt()
+                var menuSelectInput = readln().toInt()
 
-                if (menuSelectInput == 0) {
-                    break
-
-                } else if (menuSelectInput == 1 || menuSelectInput == 2) {
-                    for (i in 0..burgersList.size - 1) {
-                        if (menuSelectInput == burgersList[i].id) {
-                            DisplayInfo().displayOrderCheck(burgersList[i])
-                            selectCartCheck(burgersList[i])
-                            return
-                        }
+                when (menuSelectInput) {
+                    0 -> {
+                        break
                     }
 
-                } else {
-                    DisplayInfo().displayException()
+                    1, 2 -> {
+                        for (i in 0..burgersList.size - 1) {
+                            when (menuSelectInput) {
+                                burgersList[i].id -> {
+                                    DisplayInfo().displayOrderCheck(burgersList[i])
+                                    selectCartCheck(burgersList[i])
+                                    return
+                                }
+                            }
+                        }
 
+                    }
+
+                    else -> {
+                        DisplayInfo().displayException()
+
+                    }
                 }
             }
 
@@ -84,21 +110,28 @@ class SelectMenuInfo {
             while (true) {
                 var menuSelectInput = readLine()!!.toInt()
 
-                if (menuSelectInput == 0) {
-                    break
-
-                } else if (menuSelectInput == 1 || menuSelectInput == 2) {
-                    for (i in 0..sidesList.size - 1) {
-                        if (menuSelectInput == sidesList[i].id) {
-                            DisplayInfo().displayOrderCheck(sidesList[i])
-                            selectCartCheck(sidesList[i])
-                            return
-                        }
+                when (menuSelectInput) {
+                    0 -> {
+                        break
                     }
 
-                } else {
-                    DisplayInfo().displayException()
+                    1, 2 -> {
+                        for (i in 0..sidesList.size - 1) {
+                            when (menuSelectInput) {
+                                sidesList[i].id -> {
+                                    DisplayInfo().displayOrderCheck(sidesList[i])
+                                    selectCartCheck(sidesList[i])
+                                    return
+                                }
+                            }
+                        }
 
+                    }
+
+                    else -> {
+                        DisplayInfo().displayException()
+
+                    }
                 }
             }
 
@@ -107,30 +140,35 @@ class SelectMenuInfo {
             selectSidesMenu()
 
         }
-
     }
 
     fun selectDrinksMenu() {
         try {
             while (true) {
-                var menuSelectInput = readLine()!!.toInt()
+                var menuSelectInput = readln().toInt()
 
-                if (menuSelectInput == 0) {
-                    break
-
-                } else if (menuSelectInput == 1 || menuSelectInput == 2) {
-
-                    for (i in 0..drinksList.size - 1) {
-                        if (menuSelectInput == drinksList[i].id) {
-                            DisplayInfo().displayOrderCheck(drinksList[i])
-                            selectCartCheck(drinksList[i])
-                            return
-                        }
+                when (menuSelectInput) {
+                    0 -> {
+                        break
                     }
 
-                } else {
-                    DisplayInfo().displayException()
+                    1, 2 -> {
+                        for (i in 0..drinksList.size - 1) {
+                            when (menuSelectInput) {
+                                drinksList[i].id -> {
+                                    DisplayInfo().displayOrderCheck(drinksList[i])
+                                    selectCartCheck(drinksList[i])
+                                    return
+                                }
+                            }
+                        }
 
+                    }
+
+                    else -> {
+                        DisplayInfo().displayException()
+
+                    }
                 }
             }
 
@@ -144,18 +182,23 @@ class SelectMenuInfo {
     fun selectCartCheck(dataModel: DataModel) {
         try {
             while (true) {
-                var checkCart = readLine()!!.toInt()
-                if (checkCart == 1) {
-                    cartList.add(dataModel)
-                    DisplayInfo().displayAddCart(dataModel)
-                    break
+                var checkCart = readln().toInt()
 
-                } else if (checkCart == 2) {
-                    break
+                when (checkCart) {
+                    1 -> {
+                        cartList.add(dataModel)
+                        DisplayInfo().displayAddCart(dataModel)
+                        break
+                    }
 
-                } else {
-                    DisplayInfo().displayException()
+                    2 -> {
+                        break
+                    }
 
+                    else -> {
+                        DisplayInfo().displayException()
+
+                    }
                 }
             }
 
@@ -169,17 +212,21 @@ class SelectMenuInfo {
     fun checkoutOperation(): Boolean {
         try {
             while (true) {
-                var checkOutInput = readLine()!!.toInt()
+                var checkOutInput = readln().toInt()
 
-                if (checkOutInput == 1) {
-                    return MoneyOperation().checkoutMoneyOperation()
+                when (checkOutInput) {
+                    1 -> {
+                        return MoneyOperation().checkoutMoneyOperation()
+                    }
 
-                } else if (checkOutInput == 2) {
-                    break
+                    2 -> {
+                        return false
+                        break
+                    }
 
-                } else {
-                    DisplayInfo().displayException()
-
+                    else -> {
+                        DisplayInfo().displayException()
+                    }
                 }
             }
 
